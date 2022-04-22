@@ -1,8 +1,8 @@
 package com.zensar.olxadvertise.controller;
 
-import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -18,133 +18,69 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.zensar.olxadvertise.entity.Advertise;
 import com.zensar.olxadvertise.entity.AdvertiseDetails;
+import com.zensar.olxadvertise.service.OlxAdvertiseService;
+
 
 
 
 @RestController
-
+@RequestMapping(produces = {MediaType.APPLICATION_XML_VALUE ,MediaType.APPLICATION_JSON_VALUE},consumes ={MediaType.APPLICATION_XML_VALUE,MediaType.APPLICATION_JSON_VALUE})
 public class Controller {
 
-	static List<Advertise> advertises = new ArrayList<Advertise>();
-	static List<AdvertiseDetails> advertiseDetails=new ArrayList<AdvertiseDetails>();
-
-	static {
-		advertises.add(new Advertise(1L, "laptop sale", 54000, "Electronic goods", "intel core 3 Sony Vaio", "anand",
-				"4/21/22", "4/21/22", "OPEN"));
-	}
-	
-	static {
-		advertiseDetails.add(new AdvertiseDetails(1L, "laptop sale", 54000, "Electronic goods", "intel core 3 Sony Vaio", "anand",
-				"4/21/22", "4/21/22", "OPEN","Anand Kulkarni"));
-	}
+	@Autowired
+	private OlxAdvertiseService olxAdvertiseService;
 
 	@PostMapping(value="/advertise",produces = {MediaType.APPLICATION_XML_VALUE ,MediaType.APPLICATION_JSON_VALUE},consumes ={MediaType.APPLICATION_XML_VALUE,MediaType.APPLICATION_JSON_VALUE})
 	public ResponseEntity<Advertise> addAdvertise(@RequestBody Advertise ads,
 			@RequestHeader("userName") String username, @RequestHeader("password") String password) {
-		if (username.equals("anand") && password.equals("anand123")) {
-			advertises.add(ads);
-			ads.setCategory("Electronic goods");
-			ads.setUserName("anand");
-			ads.setCreatedDate("4/21/22");
-			ads.setModifiedDate("4/21/22");
-			ads.setStatus("OPEN");
-			return new ResponseEntity<Advertise>(ads, HttpStatus.CREATED);
-		}
+		
+		
+		Advertise advertise =olxAdvertiseService.addAdvertise(ads, username, password);
 
-		return null;
+    	return new ResponseEntity<Advertise>(advertise,HttpStatus.CREATED);
+		
+		
 
 	}
 @GetMapping(value="/user/advertise/{postId}",produces = {MediaType.APPLICATION_XML_VALUE ,MediaType.APPLICATION_JSON_VALUE})
 public Advertise getAdvertise(@PathVariable long postId,@RequestHeader("userName") String username, @RequestHeader("password") String password) {
-	if (username.equals("anand") && password.equals("anand123")) {
-		
-		for(Advertise ads:advertises) {
-			if(ads.getId()==postId) {
-				return ads;
-			}
-			
-		}
-	}
-		return null;
+	  return olxAdvertiseService.getAdvertise(postId, username, password);
 		
 	}
 
 	@PutMapping(value="/advertise/{id}",produces = {MediaType.APPLICATION_XML_VALUE ,MediaType.APPLICATION_JSON_VALUE},consumes ={MediaType.APPLICATION_XML_VALUE,MediaType.APPLICATION_JSON_VALUE})
 	public Advertise updateAdvertise(@PathVariable long id, @RequestBody Advertise advertise,
 			@RequestHeader("userName") String username, @RequestHeader("password") String password) {
-		if (username.equals("anand") && password.equals("anand123")) {
-			Advertise ads = getAdvertise(id, "anand", "anand123");
-			ads.setTitle(advertise.getTitle());
-			ads.setPrice(advertise.getPrice());
-			ads.setDescription(advertise.getDescription());
-			
-			return ads;
-		}
-
-		return null;
+		return olxAdvertiseService.updateAdvertise(id, advertise, username, password);
 
 	}
 	
 	@GetMapping(value="/user/advertise",produces = {MediaType.APPLICATION_XML_VALUE ,MediaType.APPLICATION_JSON_VALUE})
 	public List<Advertise> getAllAdvertise(@RequestHeader("userName") String username, @RequestHeader("password") String password) {
-		if (username.equals("anand") && password.equals("anand123")) {
-		return advertises;
-		}
-		
-		return null;
+		return olxAdvertiseService.getAllAdvertise(username, password);
 	}
 	
 	@DeleteMapping("/user/advertise/{postId}")
 	public boolean deleteAdvertise(@PathVariable("postId") long id,@RequestHeader("userName") String username, @RequestHeader("password") String password) {
-		if (username.equals("anand") && password.equals("anand123")) {
-		for(Advertise ads:advertises) {
-			if(ads.getId()==id) {
-				advertises.remove(ads);
-				
-				return true;
-			}
-		}
-			
-		}
-		return false;
+		return olxAdvertiseService.deleteAdvertise(id, username, password);
 	}
 	
 	@GetMapping(value="/advertise/search/{index}",produces = {MediaType.APPLICATION_XML_VALUE ,MediaType.APPLICATION_JSON_VALUE})
-	public Advertise searchAdvertisementsByCriteria(@PathVariable String category, String toDate,Long index, String fromDate) {
-		for(Advertise ads:advertises) {
-			if(ads.getId()==index||ads.getCategory().equals(category)||ads.getCreatedDate().equals(fromDate)||ads.getModifiedDate().equals(toDate)) {
-				return ads;
-			}
-////			else if(ads.getCategory().equals(category)){
-////				return ads;
-//			}else if(ads.getCreatedDate().equals(fromDate)) {
-//				return ads;
-//			}else if(ads.getModifiedDate()==toDate) {
-//				return ads;
-//			}
-			
-		}
-		return null;
+	public Advertise searchAdvertisementsByCriteria(@PathVariable long index, String category, String toDate, String fromDate) {
+		return olxAdvertiseService.searchAdvertisementsByCriteria(category, toDate, index, fromDate);
 	}
 	
 	@GetMapping(value="/advertise/search",produces = {MediaType.APPLICATION_XML_VALUE ,MediaType.APPLICATION_JSON_VALUE})
 	public List<Advertise> searchAdvertise() {
 		
-		return advertises;
+		return olxAdvertiseService.searchAdvertise();
 		
 	}
 	@GetMapping(value="/advertise/{postId}",produces = {MediaType.APPLICATION_XML_VALUE ,MediaType.APPLICATION_JSON_VALUE})
 	public List<AdvertiseDetails> advertiseDetails(@PathVariable("postId") long id,@RequestHeader("userName") String username, @RequestHeader("password") String password) {
-		if (username.equals("anand") && password.equals("anand123")) {
-			for(AdvertiseDetails ads:advertiseDetails) {
-				if(ads.getId()==id) {
-			
-					return advertiseDetails;
-				}
-			}
-		}
-		return null;
 		
+		
+		return olxAdvertiseService.advertiseDetails(id, username, password);
 	}
 
 }
