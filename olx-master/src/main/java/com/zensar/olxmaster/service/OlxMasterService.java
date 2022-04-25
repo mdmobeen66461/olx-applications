@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 import com.zensar.olxmaster.entity.Category;
 import com.zensar.olxmaster.entity.Status;
 
-@Service
+
 public interface OlxMasterService {
 	List<Category> getAllAdvertisementCategories();
 	List<Status> getAllAdvertisementStatus();

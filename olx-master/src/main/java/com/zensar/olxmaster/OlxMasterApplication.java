@@ -1,4 +1,4 @@
-package com.zensar;
+package com.zensar.olxmaster;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

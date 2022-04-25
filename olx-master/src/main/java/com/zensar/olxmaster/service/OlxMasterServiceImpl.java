@@ -3,9 +3,12 @@ package com.zensar.olxmaster.service;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.stereotype.Service;
+
 import com.zensar.olxmaster.entity.Category;
 import com.zensar.olxmaster.entity.Status;
 
+@Service
 public class OlxMasterServiceImpl implements OlxMasterService{
 	
 	static List<Category> categories= new ArrayList<Category>();
