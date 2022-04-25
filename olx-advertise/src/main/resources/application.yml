@@ -1,2 +1,7 @@
 server:
   port: 2000
+  
+spring:
+    mvc:
+      pathmatch:
+            matching-strategy: ANT_PATH_MATCHER

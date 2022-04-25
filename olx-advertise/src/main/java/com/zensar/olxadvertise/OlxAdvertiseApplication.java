@@ -1,4 +1,4 @@
-package com.zensar;
+package com.zensar.olxadvertise;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
