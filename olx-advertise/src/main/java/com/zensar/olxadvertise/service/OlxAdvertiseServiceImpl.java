@@ -3,10 +3,13 @@ package com.zensar.olxadvertise.service;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.zensar.olxadvertise.entity.Advertise;
 import com.zensar.olxadvertise.entity.AdvertiseDetails;
+import com.zensar.olxadvertise.repository.AdvertiseDetailsRepository;
+import com.zensar.olxadvertise.repository.AdvertiseRepository;
 @Service
 public class OlxAdvertiseServiceImpl implements OlxAdvertiseService {
 	
@@ -24,6 +27,11 @@ public class OlxAdvertiseServiceImpl implements OlxAdvertiseService {
 				"4/21/22", "4/21/22", "OPEN","Anand Kulkarni"));
 	}
 
+	@Autowired
+	private AdvertiseDetailsRepository advertiseDetailsRepository;
+	@Autowired
+	private AdvertiseRepository advertiseRepository;
+	
 	@Override
 	public Advertise addAdvertise(Advertise ads, String username, String password) {
 		if (username.equals("anand") && password.equals("anand123")) {
