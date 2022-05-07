@@ -18,8 +18,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.zensar.entity.User;
 import com.zensar.service.OlxLoginService;
 
-import io.swagger.annotations.ApiOperation;
-
 @RestController
 //@RequestMapping(value="/user",produces = {MediaType.APPLICATION_XML_VALUE ,MediaType.APPLICATION_JSON_VALUE},consumes ={MediaType.APPLICATION_XML_VALUE,MediaType.APPLICATION_JSON_VALUE})
 @RequestMapping("/user")
@@ -28,14 +26,14 @@ public class MyController {
 	@Autowired
 	private OlxLoginService olxLoginService;
 
-	@ApiOperation("get all users")
+	//@ApiOperation("get all users")
 	@GetMapping(produces = { MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_VALUE })
 	public List<User> getAllUsers(@RequestHeader("userName") String username,
 			@RequestHeader("password") String password) {
 		return olxLoginService.getAllUsers(username, password);
 
 	}
-	@ApiOperation("register users")
+	//@ApiOperation("register users")
 	@PostMapping(produces = { MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_VALUE }, consumes = {
 			MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_VALUE })
 	public ResponseEntity<User> registerUser(@RequestBody User user) {
@@ -49,14 +47,14 @@ public class MyController {
 	}
 
 	@DeleteMapping("/logout/{userId}")
-	@ApiOperation("logout user")
+	//@ApiOperation("logout user")
 	public boolean logoutUser(@PathVariable("userId") long id1, @RequestHeader("userName") String username,
 			@RequestHeader("password") String password) {
 
 		return olxLoginService.logoutUser(id1, username, password);
 
 	}
-	@ApiOperation("authenticate user")
+	//@ApiOperation("authenticate user")
 	@PostMapping(value = "/authenticate", produces = { MediaType.APPLICATION_XML_VALUE,
 			MediaType.APPLICATION_JSON_VALUE })
 	public String loginUser(@RequestBody User user) {

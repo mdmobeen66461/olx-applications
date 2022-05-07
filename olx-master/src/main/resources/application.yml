@@ -16,4 +16,16 @@ spring:
       hibernate:
         ddl-auto: create
       show-sql: true
+      
+      
+management:
+  endpoints:
+    web:
+     exposure:
+      include:
+      - "*"
+     # exclude:
+      #- health
+      #- info
+     base-path: "/my-actuator"
          

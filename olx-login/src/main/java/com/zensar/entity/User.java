@@ -5,8 +5,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -14,25 +12,25 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@ApiModel("This is the model")
+//@ApiModel("This is the model")
 @Entity
 public class User {
 	
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Id
-	@ApiModelProperty("stock Id of Integer type")
+	//@ApiModelProperty("stock Id of Integer type")
 	private long id;
-	@ApiModelProperty("firstname of String type")
+	//@ApiModelProperty("firstname of String type")
 	private String firstName;
-	@ApiModelProperty("lastname of String type")
+	//@ApiModelProperty("lastname of String type")
 	private String lastName;
-	@ApiModelProperty("username of String type")
+	//@ApiModelProperty("username of String type")
 	private String userName;
-	@ApiModelProperty("password of String type")
+	//@ApiModelProperty("password of String type")
 	private String password;
-	@ApiModelProperty("email of String type")
+	//@ApiModelProperty("email of String type")
 	private String email;
-	@ApiModelProperty("email of Integer type")
+	//@ApiModelProperty("email of Integer type")
 	private long phone;
 
 }
