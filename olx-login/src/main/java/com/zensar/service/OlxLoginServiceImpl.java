@@ -39,7 +39,7 @@ public class OlxLoginServiceImpl implements OlxLoginService {
 	}
 
 	@Override
-	public boolean logoutUser(long id1, String username, String password) {
+	public boolean logoutUser(long id1, String username, String password){
 		if(username.equals("anand")&&password.equals("anand123")) {
 //			for(User user:users) {
 //				if(user.getId()==id1) {
@@ -51,11 +51,28 @@ public class OlxLoginServiceImpl implements OlxLoginService {
 //				
 //			}
 			
+			if(userRepository.existsById(id1)) {
 			userRepository.deleteById(id1);
 			return true;
+			}
+			else {
+				return false;
+			}
+			
+			
+			
+			
+			
 			
 		}
-		return false; 
+		
+		
+		//	throw new InvalidIdException("Invalid id : "+id1);
+			
+			return false; 
+		
+		
+		
 	}
 
 	@Override
