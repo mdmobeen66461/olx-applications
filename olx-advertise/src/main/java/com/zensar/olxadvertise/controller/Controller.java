@@ -24,13 +24,13 @@ import com.zensar.olxadvertise.service.OlxAdvertiseService;
 
 
 @RestController
-@RequestMapping(produces = {MediaType.APPLICATION_XML_VALUE ,MediaType.APPLICATION_JSON_VALUE},consumes ={MediaType.APPLICATION_XML_VALUE,MediaType.APPLICATION_JSON_VALUE})
+//@RequestMapping(produces = {MediaType.APPLICATION_XML_VALUE ,MediaType.APPLICATION_JSON_VALUE},consumes ={MediaType.APPLICATION_XML_VALUE,MediaType.APPLICATION_JSON_VALUE})
 public class Controller {
 
 	@Autowired
 	private OlxAdvertiseService olxAdvertiseService;
 
-	@PostMapping(value="/advertise",produces = {MediaType.APPLICATION_XML_VALUE ,MediaType.APPLICATION_JSON_VALUE},consumes ={MediaType.APPLICATION_XML_VALUE,MediaType.APPLICATION_JSON_VALUE})
+	@PostMapping(value="/advertise")
 	public ResponseEntity<Advertise> addAdvertise(@RequestBody Advertise ads,
 			@RequestHeader("userName") String username, @RequestHeader("password") String password) {
 		
@@ -42,7 +42,7 @@ public class Controller {
 		
 
 	}
-@GetMapping(value="/user/advertise/{postId}",produces = {MediaType.APPLICATION_XML_VALUE ,MediaType.APPLICATION_JSON_VALUE})
+@GetMapping(value="/user/advertise/{postId}")
 public Advertise getAdvertise(@PathVariable long postId,@RequestHeader("userName") String username, @RequestHeader("password") String password) {
 	  return olxAdvertiseService.getAdvertise(postId, username, password);
 		
@@ -55,7 +55,7 @@ public Advertise getAdvertise(@PathVariable long postId,@RequestHeader("userName
 
 	}
 	
-	@GetMapping(value="/user/advertise",produces = {MediaType.APPLICATION_XML_VALUE ,MediaType.APPLICATION_JSON_VALUE})
+	@GetMapping(value="/user/advertise")
 	public List<Advertise> getAllAdvertise(@RequestHeader("userName") String username, @RequestHeader("password") String password) {
 		return olxAdvertiseService.getAllAdvertise(username, password);
 	}
@@ -65,18 +65,18 @@ public Advertise getAdvertise(@PathVariable long postId,@RequestHeader("userName
 		return olxAdvertiseService.deleteAdvertise(id, username, password);
 	}
 	
-	@GetMapping(value="/advertise/search/{index}",produces = {MediaType.APPLICATION_XML_VALUE ,MediaType.APPLICATION_JSON_VALUE})
+	@GetMapping(value="/advertise/search/{index}")
 	public Advertise searchAdvertisementsByCriteria(@PathVariable long index, String category, String toDate, String fromDate) {
 		return olxAdvertiseService.searchAdvertisementsByCriteria(category, toDate, index, fromDate);
 	}
 	
-	@GetMapping(value="/advertise/search",produces = {MediaType.APPLICATION_XML_VALUE ,MediaType.APPLICATION_JSON_VALUE})
+	@GetMapping(value="/advertise/search")
 	public List<Advertise> searchAdvertise() {
 		
 		return olxAdvertiseService.searchAdvertise();
 		
 	}
-	@GetMapping(value="/advertise/{postId}",produces = {MediaType.APPLICATION_XML_VALUE ,MediaType.APPLICATION_JSON_VALUE})
+	@GetMapping(value="/advertise/{postId}")
 	public List<AdvertiseDetails> advertiseDetails(@PathVariable("postId") long id,@RequestHeader("userName") String username, @RequestHeader("password") String password) {
 		
 		
