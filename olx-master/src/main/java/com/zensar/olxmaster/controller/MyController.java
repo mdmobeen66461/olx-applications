@@ -20,13 +20,13 @@ public class MyController {
 	@Autowired
 	private OlxMasterService olxMasterService;
 	
-	@GetMapping(value="/category",produces = {MediaType.APPLICATION_XML_VALUE ,MediaType.APPLICATION_JSON_VALUE})
+	@GetMapping(value="/category")
 	//@ApiOperation("Getting all categories")
 	public List<Category> getAllAdvertisementCategories() {
 		return olxMasterService.getAllAdvertisementCategories();
 	}
 	
-	@GetMapping(value="/status",produces = {MediaType.APPLICATION_XML_VALUE ,MediaType.APPLICATION_JSON_VALUE})
+	@GetMapping(value="/status")
 	//@ApiOperation("Getting all Status")
 	public List<Status> getAllAdvertisementStatus(){
 		return olxMasterService.getAllAdvertisementStatus();
